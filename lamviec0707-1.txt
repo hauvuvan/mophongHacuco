@@ -1,0 +1,19 @@
+╭─── Claude Code v2.1.126 ─────────────────────────────────────────────────────╮
+│                                                    │ Tips for getting        │
+│                 Welcome back Hauvu!                │ started                 │
+│                                                    │ Run /init to create a … │
+│                       ▐▛███▜▌                      │ ─────────────────────── │
+│                      ▝▜█████▛▘                     │ What's new              │
+│                        ▘▘ ▝▝                       │ Bare `/color` (no args… │
+│       Sonnet 4.6 · Claude Pro ·                    │ `/mcp` now shows the t… │
+│       phamphu061123@gmail.com's Organization       │ `--plugin-dir` now acc… │
+│              ~/Desktop/mophonglapdat               │ /release-notes for more │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+✻ Conversation compacted (ctrl+o for history)
+
+  ⎿  Referenced file mo-phong-tong-hop-tien-dien-pin-mat-troi.html
+  ⎿  You've hit your limit · resets 6:50pm (Asia/Saigon)
+     /upgrade to increase your usage limit.
+
+✻ Cogitated for 5m 49s
