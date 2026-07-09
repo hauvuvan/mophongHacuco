@@ -68,11 +68,14 @@ export default function Sidebar({
   const updateRoofField = (roofId, field, val) => {
     setRoofs(prev => prev.map(r => {
       if (r.id === roofId) {
-        const updated = { ...r, [field]: Math.max(0.1, parseFloat(val) || 0.1) };
-        if (field === 'shape' && val === 'trapezoid' && updated.w2 == null) {
-          updated.w2 = updated.w;
+        if (field === 'shape') {
+          const updated = { ...r, shape: val };
+          if (val === 'trapezoid' && updated.w2 == null) {
+            updated.w2 = updated.w;
+          }
+          return updated;
         }
-        return updated;
+        return { ...r, [field]: Math.max(0.1, parseFloat(val) || 0.1) };
       }
       return r;
     }));
