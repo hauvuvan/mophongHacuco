@@ -4,16 +4,9 @@ import { Button } from './ui/Button';
 import { Input, Label } from './ui/Input';
 
 export default function LoginOverlay() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const displayError = error;
-
-  const handleLogin = async (e) => {
-    if (e) e.preventDefault();
-    setError('Tính năng đăng nhập bằng email đang được bảo trì trong phiên bản mới.');
-  };
 
   const handleGoogleLogin = async () => {
     setError('');
@@ -28,71 +21,31 @@ export default function LoginOverlay() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[var(--color-muted)] p-4">
-      <form
-        onSubmit={handleLogin}
-        className="w-full max-w-md bg-[var(--color-card)] rounded-xl shadow-lg p-8 border border-[var(--color-border)] flex flex-col gap-5"
+      <div
+        className="w-full max-w-sm bg-[var(--color-card)] rounded-xl shadow-lg p-8 border border-[var(--color-border)] flex flex-col gap-6"
       >
-        <div className="flex flex-col gap-1 mb-1">
-          <span className="text-xs font-semibold tracking-widest text-[var(--color-muted-foreground)] uppercase">HACUCO</span>
-          <h1 className="text-2xl font-bold text-[var(--color-foreground)]">Đăng nhập hệ thống</h1>
-          <p className="text-sm text-[var(--color-muted-foreground)]">Ước tính & mô phỏng lắp pin mặt trời</p>
+        <div className="flex flex-col gap-1 mb-2 text-center">
+          <span className="text-xs font-semibold tracking-widest text-[var(--color-primary)] uppercase mb-2">HACUCO</span>
+          <h1 className="text-2xl font-bold text-[var(--color-foreground)]">Chào mừng trở lại</h1>
+          <p className="text-sm text-[var(--color-muted-foreground)]">Hệ thống ước tính & mô phỏng điện mặt trời</p>
         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="loginEmail">Email</Label>
-          <Input
-            id="loginEmail"
-            type="email"
-            placeholder="email@example.com"
-            autoComplete="username"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="loginPassword">Mật khẩu</Label>
-          <Input
-            id="loginPassword"
-            type="password"
-            placeholder="••••••••"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-
-        {displayError && <p className="text-xs text-[var(--color-destructive)] font-medium">{displayError}</p>}
-
-        <Button type="submit" size="lg" className="w-full" disabled={loading}>
-          {loading ? 'Đang đăng nhập…' : 'Đăng nhập'}
-        </Button>
-
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-[var(--color-border)]" />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-[var(--color-card)] px-2 text-[var(--color-muted-foreground)]">
-              Hoặc
-            </span>
-          </div>
-        </div>
+        {displayError && <p className="text-xs text-[var(--color-destructive)] font-medium text-center">{displayError}</p>}
 
         <button
           type="button"
           onClick={handleGoogleLogin}
           disabled={loading}
-          className="flex h-11 w-full items-center justify-center gap-3 rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-4 text-sm font-semibold text-[var(--color-foreground)] transition-all duration-200 active:scale-95 hover:bg-[var(--color-accent)] hover:shadow-sm disabled:pointer-events-none disabled:opacity-60"
+          className="flex h-12 w-full items-center justify-center gap-3 rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-4 text-sm font-semibold text-[var(--color-foreground)] transition-all duration-200 active:scale-95 hover:bg-[var(--color-accent)] hover:shadow-sm disabled:pointer-events-none disabled:opacity-60"
         >
           <GoogleIcon />
           Đăng nhập với Google
         </button>
 
-        <p className="text-xs text-[var(--color-muted-foreground)] text-center">
-          Liên hệ quản trị viên để được cấp tài khoản.
+        <p className="text-xs text-[var(--color-muted-foreground)] text-center mt-2">
+          Hệ thống hiện chỉ hỗ trợ tài khoản Google nội bộ.
         </p>
-      </form>
+      </div>
     </div>
   );
 }
