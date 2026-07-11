@@ -4,7 +4,7 @@ import { Input, Label } from './ui/Input';
 import { Card, CardContent } from './ui/Card';
 import { Dialog, DialogBody, DialogFooter } from './ui/Dialog';
 
-export default function Dashboard({ simulations, onCreateSimulation, onDeleteSimulation, onSelectSimulation, onRenameSimulation }) {
+export default function Dashboard({ simulations, onCreateSimulation, onDeleteSimulation, onSelectSimulation, onRenameSimulation, loading }) {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newSimName, setNewSimName] = useState('');
   const [renamingId, setRenamingId] = useState(null);
@@ -49,8 +49,13 @@ export default function Dashboard({ simulations, onCreateSimulation, onDeleteSim
         </Button>
       </div>
 
-      {/* Empty state */}
-      {simulations.length === 0 ? (
+      {/* Loading/Empty state */}
+      {loading ? (
+        <div className="rounded-lg border border-dashed border-[var(--color-border)] bg-[var(--color-card)] py-16 flex flex-col items-center justify-center gap-3 text-center">
+          <div className="w-8 h-8 border-4 border-t-[var(--color-primary)] border-r-[var(--color-muted)] border-b-[var(--color-muted)] border-l-[var(--color-muted)] rounded-full animate-spin mb-2"></div>
+          <p className="text-sm font-medium text-[var(--color-muted-foreground)]">Đang tải thiết kế của bạn...</p>
+        </div>
+      ) : simulations.length === 0 ? (
         <div className="rounded-lg border border-dashed border-[var(--color-border)] bg-[var(--color-card)] py-16 flex flex-col items-center justify-center gap-3 text-center">
           <span className="text-5xl">📐</span>
           <h3 className="text-lg font-semibold text-[var(--color-foreground)]">Chưa có mô phỏng nào</h3>

@@ -18,6 +18,7 @@ export default function App() {
 
   // SIMULATIONS
   const [simulations, setSimulations] = useState([]);
+  const [loadingSims, setLoadingSims] = useState(true);
   const [currentSimulationId, setCurrentSimulationId] = useState(null);
   const [scribbles, setScribbles] = useState([]);
 
@@ -58,10 +59,18 @@ export default function App() {
   // ── AUTH & DATA ──────────────────────────────────────────────────────
   useEffect(() => {
     if (user?.email) {
-      loadSimulations(user.email).then(sims => setSimulations(sims || [])).catch(console.error);
+      setLoadingSims(true);
+      loadSimulations(user.email).then(sims => {
+        setSimulations(sims || []);
+        setLoadingSims(false);
+      }).catch(err => {
+        console.error(err);
+        setLoadingSims(false);
+      });
     } else {
       setSimulations([]);
       setCurrentSimulationId(null);
+      setLoadingSims(false);
     }
   }, [user?.email]);
 
@@ -315,6 +324,7 @@ export default function App() {
       {!currentSimulationId ? (
         <main className="flex-1 overflow-auto bg-[var(--color-muted)]">
           <Dashboard
+            loading={loadingSims}
             simulations={simulations}
             onCreateSimulation={handleCreateSimulation}
             onDeleteSimulation={handleDeleteSimulation}
