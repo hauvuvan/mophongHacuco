@@ -83,7 +83,7 @@ export default function LoginOverlay() {
           type="button"
           onClick={handleGoogleLogin}
           disabled={loading}
-          className="flex h-11 w-full items-center justify-center gap-3 rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-4 text-sm font-semibold text-[var(--color-foreground)] transition-colors hover:bg-[var(--color-accent)] disabled:pointer-events-none disabled:opacity-60"
+          className="flex h-11 w-full items-center justify-center gap-3 rounded-md border border-[var(--color-border)] bg-[var(--color-background)] px-4 text-sm font-semibold text-[var(--color-foreground)] transition-all duration-200 active:scale-95 hover:bg-[var(--color-accent)] hover:shadow-sm disabled:pointer-events-none disabled:opacity-60"
         >
           <GoogleIcon />
           Đăng nhập với Google
