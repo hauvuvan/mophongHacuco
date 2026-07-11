@@ -19,7 +19,7 @@ export default function LoginOverlay() {
     setError('');
     setLoading(true);
     try {
-      await signIn('google');
+      await signIn('google', { callbackUrl: window.location.origin });
     } catch (err) {
       setError(err.message || 'Có lỗi xảy ra khi đăng nhập bằng Google.');
       setLoading(false);
