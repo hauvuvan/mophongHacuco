@@ -1,5 +1,6 @@
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
+import { auth } from "@/lib/auth";
 
 export const dynamic = 'force-dynamic';
 
@@ -8,11 +9,13 @@ export const metadata = {
   description: "Mô phỏng lắp đặt điện mặt trời",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const session = await auth();
+  
   return (
     <html lang="vi">
       <body className="antialiased">
-        <SessionProvider>{children}</SessionProvider>
+        <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>
   );
