@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Button } from './ui/Button';
+import { Dialog, DialogBody, DialogFooter } from './ui/Dialog';
 
 export default function ScribbleOverlay({ scribbles = [], onScribblesChange }) {
   const [isActive, setIsActive] = useState(false);
@@ -266,36 +268,17 @@ export default function ScribbleOverlay({ scribbles = [], onScribblesChange }) {
         )}
       </div>
 
-      {showConfirm && (
-        <div className="confirm-modal-overlay" onClick={() => setShowConfirm(false)}>
-          <div className="confirm-modal-card" onClick={(e) => e.stopPropagation()}>
-            <div className="confirm-modal-title">
-              ⚠️ Xóa toàn bộ nét vẽ?
-            </div>
-            <div className="confirm-modal-body">
-              Thao tác này sẽ dọn sạch tất cả các nét phác thảo trên bản vẽ nháp của bạn và không thể hoàn tác.
-            </div>
-            <div className="confirm-modal-actions">
-              <button
-                type="button"
-                className="btn-secondary"
-                style={{ padding: '7px 14px', fontSize: '12.5px' }}
-                onClick={() => setShowConfirm(false)}
-              >
-                Hủy
-              </button>
-              <button
-                type="button"
-                className="btn-danger"
-                style={{ padding: '7px 14px', fontSize: '12.5px' }}
-                onClick={confirmClearAll}
-              >
-                Xóa sạch
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <Dialog open={showConfirm} onClose={() => setShowConfirm(false)} title="Xóa toàn bộ nét vẽ?" maxWidth="max-w-sm">
+        <DialogBody>
+          <p className="text-sm text-[var(--color-foreground)]">
+            Thao tác này sẽ dọn sạch tất cả các nét phác thảo trên bản vẽ nháp của bạn và không thể hoàn tác.
+          </p>
+        </DialogBody>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => setShowConfirm(false)}>Hủy</Button>
+          <Button variant="destructive" onClick={confirmClearAll}>Xóa sạch</Button>
+        </DialogFooter>
+      </Dialog>
     </>
   );
 }
