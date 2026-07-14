@@ -35,11 +35,11 @@ export default function Dashboard({ simulations, onCreateSimulation, onDeleteSim
     new Date(iso).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-6xl mx-auto">
       {/* PageHeader */}
       <div className="flex items-start justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-[var(--color-foreground)]">Mô phỏng của tôi</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-[var(--color-foreground)]">Mô phỏng của tôi</h1>
           <p className="text-sm text-[var(--color-muted-foreground)] mt-1">
             Quản lý và thiết kế các phương án lắp đặt pin mặt trời
           </p>

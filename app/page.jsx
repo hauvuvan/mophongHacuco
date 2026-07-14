@@ -302,6 +302,8 @@ export default function App() {
     return () => window.removeEventListener('keydown', handler);
   }, [handleRemoveSelectedPanel]);
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   // ── RENDER ────────────────────────────────────────────────────
   if (status === "loading") {
     return (
@@ -334,8 +336,16 @@ export default function App() {
         </main>
       ) : (
         <>
-          <div className="flex flex-1 overflow-hidden">
+          <div className="flex flex-1 overflow-hidden relative">
+            {sidebarOpen && (
+              <div
+                className="fixed inset-0 bg-black/40 z-30 lg:hidden"
+                onClick={() => setSidebarOpen(false)}
+              />
+            )}
             <Sidebar
+              isOpen={sidebarOpen}
+              onClose={() => setSidebarOpen(false)}
               machines={machines}
               customerName={customerName} setCustomerName={setCustomerName}
               customerPhone={customerPhone} setCustomerPhone={setCustomerPhone}
@@ -367,13 +377,14 @@ export default function App() {
               onClearAllPanels={handleClearAllPanels}
               selectedMachineId={selectedMachineId}
             />
-            <div className="flex flex-col flex-1 overflow-hidden">
+            <div className="flex flex-col flex-1 overflow-hidden min-w-0">
               <Stage
                 roofs={roofs} machines={machines} setMachines={setMachines}
                 scale={60} selectedMachineId={selectedMachineId}
                 setSelectedMachineId={setSelectedMachineId}
                 onRotateMachine={handleRotatePanel}
                 onRotateAllInSection={handleRotateAllInSection}
+                onToggleSidebar={() => setSidebarOpen(o => !o)}
               />
             </div>
           </div>

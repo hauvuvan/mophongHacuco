@@ -369,6 +369,18 @@
 
 /* ===== RESPONSIVE MOBILE ===== */
 @media (max-width: 640px) {
+  .stage {
+    padding: 48px 16px 16px;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .roof-wrap {
+    gap: 20px;
+  }
+  .room-label-row {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
   .scribble-dock {
     bottom: 24px;
     left: 50%;
@@ -394,5 +406,12 @@
     right: auto;
     top: auto;
     transform: translateX(-50%);
+  }
+}
+
+/* ===== RESPONSIVE TABLET ===== */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .stage {
+    padding: 32px 24px;
   }
 }

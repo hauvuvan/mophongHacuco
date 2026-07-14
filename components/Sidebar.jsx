@@ -37,6 +37,7 @@ function FieldGroup({ label, children, hint }) {
 }
 
 export default function Sidebar({
+  isOpen, onClose,
   machines, customerName, setCustomerName, customerPhone, setCustomerPhone,
   customerAddress, setCustomerAddress, moneyInput, setMoneyInput,
   elecType, setElecType, elecVoltage, setElecVoltage,
@@ -71,9 +72,28 @@ export default function Sidebar({
   };
 
   return (
-    <aside className="w-72 shrink-0 border-r border-[var(--color-border)] bg-[var(--color-card)] flex flex-col h-full overflow-y-auto">
-      {/* Brand */}
-      <div className="px-5 pt-5 pb-3">
+    <aside className={cn(
+      "shrink-0 border-r border-[var(--color-border)] bg-[var(--color-card)] flex flex-col overflow-y-auto",
+      "fixed top-12 left-0 bottom-0 z-40 w-80 transition-transform duration-300 ease-in-out",
+      "lg:static lg:w-72 lg:h-full lg:transition-none lg:translate-x-0",
+      isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
+    )}>
+      {/* Mobile header with close button */}
+      <div className="flex items-center justify-between px-5 pt-4 pb-2 border-b border-[var(--color-border)] lg:hidden">
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-muted-foreground)]">HACUCO</p>
+          <p className="text-sm font-semibold text-[var(--color-foreground)] leading-snug">Cài đặt mô phỏng</p>
+        </div>
+        <button
+          onClick={onClose}
+          className="w-8 h-8 flex items-center justify-center rounded-md text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] hover:bg-[var(--color-accent)] transition-colors"
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Brand - desktop only */}
+      <div className="px-5 pt-5 pb-3 hidden lg:block">
         <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-muted-foreground)]">HACUCO</p>
         <h2 className="text-sm font-semibold text-[var(--color-foreground)] mt-0.5 leading-snug">
           Ước tính & mô phỏng lắp pin mặt trời

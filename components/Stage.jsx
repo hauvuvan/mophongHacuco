@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { getRoofContainerDims, getRoofPolygon, isOutOfBounds, rectsOverlap } from '../utils/geometry';
 import { Button } from './ui/Button';
 
-export default function Stage({ roofs, machines, setMachines, scale, selectedMachineId, setSelectedMachineId, onRotateMachine, onRotateAllInSection }) {
+export default function Stage({ roofs, machines, setMachines, scale, selectedMachineId, setSelectedMachineId, onRotateMachine, onRotateAllInSection, onToggleSidebar }) {
   const [dragInfo, setDragInfo] = useState(null);
 
   const getShapeLabel = (shape) => {
@@ -46,6 +46,13 @@ export default function Stage({ roofs, machines, setMachines, scale, selectedMac
 
   return (
     <main className="stage" onClick={() => setSelectedMachineId(null)}>
+      <button
+        onClick={(e) => { e.stopPropagation(); onToggleSidebar(); }}
+        className="lg:hidden absolute top-3 left-3 z-10 bg-[var(--color-card)] border border-[var(--color-border)] rounded-md w-9 h-9 flex items-center justify-center shadow-sm text-[var(--color-foreground)] text-base leading-none hover:bg-[var(--color-accent)] transition-colors"
+        title="Mở cài đặt"
+      >
+        ☰
+      </button>
       <div className="roof-wrap">
         {roofs.map(roof => {
           const dims = getRoofContainerDims(roof);
