@@ -85,25 +85,31 @@ export default function ScribbleOverlay({ scribbles = [], onScribblesChange }) {
 
   const handlePointerDown = (e) => {
     if (!isActive) return;
+    // Bỏ qua hover của bút stylus (buttons === 0 = chưa chạm màn hình)
+    if (e.buttons === 0) return;
+    // Chỉ xử lý pointer chính, tránh palm/ngón tay phụ gây nhiễu
+    if (!e.isPrimary) return;
+
+    e.preventDefault();
+
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     isDrawing.current = true;
-    
+
     const ctx = canvas.getContext('2d');
     ctx.beginPath();
     ctx.moveTo(x, y);
-    
+
     currentPath.current = {
       color,
       lineWidth,
       tool,
       points: [{ x, y }]
     };
-    
-    // Set pointer capture to receive events outside boundaries
+
     try {
       e.target.setPointerCapture(e.pointerId);
     } catch (err) {}
@@ -111,27 +117,34 @@ export default function ScribbleOverlay({ scribbles = [], onScribblesChange }) {
 
   const handlePointerMove = (e) => {
     if (!isDrawing.current || !isActive) return;
+    if (!e.isPrimary) return;
+    // Bút nhấc lên nhưng pointerup không kịp fire (palm rejection, v.v.)
+    if (e.buttons === 0) {
+      handlePointerUp(e);
+      return;
+    }
+
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     const ctx = canvas.getContext('2d');
     ctx.lineWidth = lineWidth;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
-    
+
     if (tool === 'eraser') {
       ctx.globalCompositeOperation = 'destination-out';
-      ctx.strokeStyle = 'rgba(0,0,0,1)'; // Must be opaque for destination-out
+      ctx.strokeStyle = 'rgba(0,0,0,1)';
     } else {
       ctx.globalCompositeOperation = 'source-over';
       ctx.strokeStyle = color;
     }
-    
+
     ctx.lineTo(x, y);
     ctx.stroke();
-    
+
     currentPath.current.points.push({ x, y });
   };
 
@@ -168,8 +181,10 @@ export default function ScribbleOverlay({ scribbles = [], onScribblesChange }) {
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
         style={{
-          cursor: isActive ? (tool === 'eraser' ? 'cell' : 'crosshair') : 'default'
+          cursor: isActive ? (tool === 'eraser' ? 'cell' : 'crosshair') : 'default',
+          touchAction: 'none'
         }}
       />
       
